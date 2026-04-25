@@ -434,8 +434,26 @@ function Feature({ title, body }) {
         border: '1px solid #eadfce',
       }}
     >
-      <div style={{ color: '#43362c', fontWeight: '700', marginBottom: '8px' }}>{title}</div>
-      <div style={{ color: '#6f5d50', fontSize: '14px', lineHeight: '1.75' }}>{body}</div>
+      <div style={{ color: '#43362c', fontWeight: '700', marginBottom: '6px' }}>{title}</div>
+      <div style={{ color: '#6f5d50', fontSize: '14px', lineHeight: '1.65' }}>{body}</div>
+    </div>
+  )
+}
+
+function FloatingNote({ title, body }) {
+  return (
+    <div
+      style={{
+        borderRadius: '24px',
+        padding: '18px 20px',
+        background: 'rgba(255,250,244,0.82)',
+        border: '1px solid rgba(213,196,178,0.9)',
+        boxShadow: '0 18px 40px rgba(112, 86, 64, 0.08)',
+        backdropFilter: 'blur(6px)',
+      }}
+    >
+      <div style={{ color: '#43362c', fontWeight: '700', marginBottom: '6px', fontSize: '15px' }}>{title}</div>
+      <div style={{ color: '#746253', fontSize: '13px', lineHeight: '1.6' }}>{body}</div>
     </div>
   )
 }
@@ -550,18 +568,17 @@ export default function App() {
       </header>
 
       <main style={{ maxWidth: '1180px', margin: '0 auto', padding: '32px 20px 64px' }}>
-        <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(320px,1fr))', gap: '26px', alignItems: 'center', marginBottom: '28px' }}>
+        <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(320px,1fr))', gap: '26px', alignItems: 'center', marginBottom: '18px' }}>
           <div style={{ padding: '6px 4px' }}>
             <div style={{ color: '#9b7b64', fontSize: '12px', textTransform: 'uppercase', letterSpacing: '0.24em', marginBottom: '12px', fontFamily: 'Inter, system-ui, sans-serif' }}>
-              hospitalidad solidaria sobre monad
+              monad testnet
             </div>
             <h1 style={{ color: '#3b2f28', fontSize: 'clamp(42px, 6vw, 72px)', lineHeight: 1.02, margin: '0 0 18px', fontWeight: '700' }}>
               Un lugar para llegar,
-              <span style={{ display: 'block', color: '#7f5d49' }}>ser recibido y confiar.</span>
+              <span style={{ display: 'block', color: '#7f5d49' }}>ser recibido y quedarse.</span>
             </h1>
-            <p style={{ color: '#655347', fontSize: '19px', lineHeight: '1.9', maxWidth: '720px', margin: 0, fontFamily: 'Inter, system-ui, sans-serif' }}>
-              Valida quiere sentirse menos como una plataforma fría y más como una red de refugios humanos:
-              viajeros, anfitriones, reputación, comunidad y recomendaciones nacidas de experiencias reales.
+            <p style={{ color: '#655347', fontSize: '18px', lineHeight: '1.85', maxWidth: '620px', margin: 0, fontFamily: 'Inter, system-ui, sans-serif' }}>
+              Estancias entre personas, con reserva on-chain y perfiles hechos para inspirar confianza desde el primer vistazo.
             </p>
 
             <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginTop: '24px', fontFamily: 'Inter, system-ui, sans-serif' }}>
@@ -570,8 +587,8 @@ export default function App() {
                   Conectar wallet
                 </button>
               )}
-              <button style={ghostBtnStyle} onClick={() => window.scrollTo({ top: 780, behavior: 'smooth' })}>
-                Explorar comunidad
+              <button style={ghostBtnStyle} onClick={() => window.scrollTo({ top: 760, behavior: 'smooth' })}>
+                Ver hospedajes
               </button>
             </div>
           </div>
@@ -579,40 +596,20 @@ export default function App() {
           <ImageCluster />
         </section>
 
-        <section style={{ display: 'grid', gridTemplateColumns: '1.2fr 0.8fr', gap: '18px', marginBottom: '28px' }}>
-          <div style={{ ...cardStyle, background: '#f8f2e8' }}>
-            <div style={{ color: '#9b7b64', fontSize: '12px', textTransform: 'uppercase', letterSpacing: '0.22em', marginBottom: '10px', fontFamily: 'Inter, system-ui, sans-serif' }}>
-              visión de producto
+        <section style={{ display: 'grid', gridTemplateColumns: '1fr auto', gap: '16px', alignItems: 'end', marginBottom: '28px' }}>
+          <div style={{ fontFamily: 'Inter, system-ui, sans-serif' }}>
+            <div style={{ color: '#8f7561', fontSize: '12px', textTransform: 'uppercase', letterSpacing: '0.22em', marginBottom: '10px' }}>
+              espacios con carácter
             </div>
-            <h2 style={{ color: '#3f332a', margin: '0 0 12px', fontSize: '34px' }}>Más hogar, menos interfaz genérica</h2>
-            <p style={{ color: '#675549', lineHeight: '1.85', marginTop: 0, fontFamily: 'Inter, system-ui, sans-serif' }}>
-              El rediseño busca expresar nido, refugio y solidaridad. Menos brillos “AI”, más texturas suaves, tonos tierra,
-              espacios respirables e imágenes que parezcan vida real. La idea no es solo “verse bonito”, sino transmitir una
-              promesa emocional coherente con la experiencia que queremos construir.
-            </p>
+            <h2 style={{ color: '#3f332a', margin: 0, fontSize: '34px', lineHeight: 1.1 }}>Perfiles claros. Reservas simples.</h2>
           </div>
-          <div style={{ ...cardStyle, background: '#efe4d4' }}>
-            <div style={{ color: '#3f332a', fontWeight: '700', marginBottom: '14px', fontSize: '20px' }}>Señales que queremos transmitir</div>
-            <div style={{ display: 'grid', gap: '10px', fontFamily: 'Inter, system-ui, sans-serif' }}>
-              {[
-                'refugio antes que transacción',
-                'confianza mutua y visible',
-                'comunidad con calidez',
-                'recomendación basada en reputación',
-              ].map((item) => (
-                <div key={item} style={{ padding: '12px 14px', borderRadius: '16px', background: '#f8f1e7', border: '1px solid #e3d6c6', color: '#69584b' }}>
-                  {item}
-                </div>
-              ))}
-            </div>
-          </div>
+          <div style={{ color: '#7c6758', fontFamily: 'Inter, system-ui, sans-serif', fontSize: '14px' }}>Scroll para descubrir</div>
         </section>
 
-        <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(220px,1fr))', gap: '16px', marginBottom: '28px', fontFamily: 'Inter, system-ui, sans-serif' }}>
-          <Feature title='Nido' body='El layout abraza al usuario con espacios suaves, rounded corners y una lectura más editorial.' />
-          <Feature title='Comunidad' body='Las imágenes y el copy priorizan vínculos, no solo flujo transaccional.' />
-          <Feature title='Solidaridad' body='La estética comunica cuidado, hospitalidad y alojamiento con intención humana.' />
-          <Feature title='Reputación' body='La experiencia deja claro que cada estancia aporta señales para futuros matches.' />
+        <section style={{ display: 'grid', gridTemplateColumns: '1.05fr 0.95fr 0.8fr', gap: '16px', marginBottom: '28px', fontFamily: 'Inter, system-ui, sans-serif' }}>
+          <Feature title='Perfiles cuidados' body='Fotos, ubicación y reputación al frente.' />
+          <Feature title='Reserva directa' body='Pocos pasos, lectura limpia, cero ruido.' />
+          <FloatingNote title='0.001 MON' body='Entrada ligera para probar el flujo completo.' />
         </section>
 
         {isConnected && (
@@ -647,14 +644,30 @@ export default function App() {
         )}
 
         {!isConnected && (
-          <section style={{ ...cardStyle, background: '#fff8f1', fontFamily: 'Inter, system-ui, sans-serif' }}>
-            <div style={{ color: '#9b7b64', fontSize: '12px', textTransform: 'uppercase', letterSpacing: '0.22em', marginBottom: '10px' }}>
-              cómo se siente el flujo
-            </div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(220px,1fr))', gap: '16px' }}>
-              <Feature title='1. Llegas' body='Conectas tu wallet y entras a un espacio que comunica cuidado desde el primer vistazo.' />
-              <Feature title='2. Encuentras tu match' body='Exploras anfitriones con mejor narrativa, señales humanas y reputación visible.' />
-              <Feature title='3. Dejas huella' body='La estancia termina alimentando confianza y futuras recomendaciones dentro de la red.' />
+          <section style={{ ...cardStyle, background: '#fff8f1', fontFamily: 'Inter, system-ui, sans-serif', overflow: 'hidden' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '1.1fr 0.9fr', gap: '18px', alignItems: 'center' }}>
+              <div>
+                <div style={{ color: '#9b7b64', fontSize: '12px', textTransform: 'uppercase', letterSpacing: '0.22em', marginBottom: '10px' }}>
+                  moverse aquí es fácil
+                </div>
+                <div style={{ display: 'grid', gap: '12px' }}>
+                  <Feature title='1. Entrar' body='Conecta tu wallet y entra directo.' />
+                  <Feature title='2. Elegir' body='Explora anfitriones y encuentra el lugar indicado.' />
+                  <Feature title='3. Reservar' body='Solicita estancia y sigue el flujo on-chain.' />
+                </div>
+              </div>
+              <div
+                style={{
+                  minHeight: '260px',
+                  borderRadius: '30px',
+                  backgroundImage: `url(${editorialImages[1]})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                  position: 'relative',
+                }}
+              >
+                <div style={{ position: 'absolute', inset: 0, borderRadius: '30px', background: 'linear-gradient(180deg, rgba(255,255,255,0.06), rgba(63,51,42,0.2))' }} />
+              </div>
             </div>
           </section>
         )}
@@ -663,7 +676,7 @@ export default function App() {
       {requestHost && <RequestModal hostAddress={requestHost} onClose={() => setRequestHost(null)} />}
 
       <footer style={{ textAlign: 'center', padding: '0 20px 40px', color: '#8d7460', fontSize: '13px', fontFamily: 'Inter, system-ui, sans-serif' }}>
-        Valida · refugio, comunidad y confianza entre humanos · Monad Testnet
+        Valida · Monad Testnet
       </footer>
     </div>
   )
