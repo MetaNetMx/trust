@@ -25,18 +25,18 @@ function Stars({ count }) {
   return (
     <span>
       {[1, 2, 3, 4, 5].map((i) => (
-        <span key={i} style={{ color: i <= count ? '#f59e0b' : '#334155' }}>★</span>
+        <span key={i} style={{ color: i <= count ? '#c27c3d' : '#d8d1c6' }}>★</span>
       ))}
     </span>
   )
 }
 
 const inputStyle = {
-  background: 'rgba(13, 17, 31, 0.88)',
-  border: '1px solid rgba(148, 163, 184, 0.16)',
-  borderRadius: '16px',
+  background: '#f6f0e7',
+  border: '1px solid #d8ccbd',
+  borderRadius: '18px',
   padding: '14px 16px',
-  color: '#f8fafc',
+  color: '#3f332a',
   fontSize: '14px',
   outline: 'none',
   width: '100%',
@@ -45,22 +45,21 @@ const inputStyle = {
 }
 
 const btnStyle = {
-  background: 'linear-gradient(135deg, #8b5cf6, #ec4899)',
-  color: '#fff',
+  background: '#7d5a45',
+  color: '#fffaf3',
   border: 'none',
-  borderRadius: '14px',
-  padding: '12px 22px',
+  borderRadius: '999px',
+  padding: '13px 24px',
   fontSize: '14px',
   fontWeight: '700',
   cursor: 'pointer',
-  boxShadow: '0 14px 40px rgba(139, 92, 246, 0.28)',
 }
 
 const ghostBtnStyle = {
-  background: 'rgba(255,255,255,0.04)',
-  color: '#e2e8f0',
-  border: '1px solid rgba(148, 163, 184, 0.18)',
-  borderRadius: '14px',
+  background: 'transparent',
+  color: '#5b4b40',
+  border: '1px solid #cdbdaa',
+  borderRadius: '999px',
   padding: '12px 18px',
   fontSize: '14px',
   fontWeight: '600',
@@ -68,12 +67,18 @@ const ghostBtnStyle = {
 }
 
 const cardStyle = {
-  background: 'linear-gradient(180deg, rgba(17,24,39,0.92), rgba(10,14,26,0.92))',
-  border: '1px solid rgba(148, 163, 184, 0.12)',
-  borderRadius: '24px',
+  background: '#fffaf4',
+  border: '1px solid #eadfce',
+  borderRadius: '28px',
   padding: '24px',
-  boxShadow: '0 30px 80px rgba(2, 6, 23, 0.35)',
+  boxShadow: '0 20px 60px rgba(112, 86, 64, 0.08)',
 }
+
+const editorialImages = [
+  'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=900&q=80',
+  'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=900&q=80',
+  'https://images.unsplash.com/photo-1520986606214-8b456906c813?auto=format&fit=crop&w=900&q=80',
+]
 
 function TokenBalance({ address }) {
   const { data: balance } = useReadContract({
@@ -86,8 +91,8 @@ function TokenBalance({ address }) {
   return (
     <div
       style={{
-        background: 'linear-gradient(135deg, rgba(76,29,149,0.9), rgba(15,23,42,0.92))',
-        border: '1px solid rgba(168,85,247,0.35)',
+        background: '#efe5d8',
+        border: '1px solid #dfcfba',
         borderRadius: '18px',
         padding: '10px 16px',
         display: 'flex',
@@ -97,8 +102,8 @@ function TokenBalance({ address }) {
     >
       <span style={{ fontSize: '18px' }}>🏅</span>
       <div>
-        <div style={{ color: '#f8fafc', fontWeight: '800', fontSize: '16px' }}>{formatted} HOST</div>
-        <div style={{ color: '#c084fc', fontSize: '11px' }}>Reputación tokenizada</div>
+        <div style={{ color: '#4b3c30', fontWeight: '800', fontSize: '16px' }}>{formatted} HOST</div>
+        <div style={{ color: '#8b6c56', fontSize: '11px' }}>reputación visible</div>
       </div>
     </div>
   )
@@ -135,38 +140,43 @@ function HostCard({ address, onRequest }) {
   const reputation = rep ? Number(rep) : 0
 
   return (
-    <div style={{ ...cardStyle, padding: '22px', display: 'flex', flexDirection: 'column', gap: '14px' }}>
+    <div style={{ ...cardStyle, display: 'flex', flexDirection: 'column', gap: '14px', overflow: 'hidden' }}>
+      <div
+        style={{
+          height: '180px',
+          borderRadius: '22px',
+          backgroundImage: `url(${editorialImages[Number(reviewCount) % editorialImages.length]})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          position: 'relative',
+        }}
+      >
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            background: 'linear-gradient(180deg, rgba(0,0,0,0.04), rgba(44,33,24,0.28))',
+            borderRadius: '22px',
+          }}
+        />
+        <div style={{ position: 'absolute', left: '16px', bottom: '16px', color: '#fffaf3' }}>
+          <div style={{ fontSize: '12px', letterSpacing: '0.08em', textTransform: 'uppercase', opacity: 0.9 }}>refugio anfitrión</div>
+          <div style={{ fontSize: '22px', fontWeight: '700' }}>{name}</div>
+        </div>
+      </div>
+
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '12px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-          <div
-            style={{
-              width: '54px',
-              height: '54px',
-              borderRadius: '18px',
-              background: 'linear-gradient(135deg,#8b5cf6,#22c55e)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontSize: '20px',
-              fontWeight: '800',
-              color: '#fff',
-            }}
-          >
-            {name?.[0]?.toUpperCase() || 'H'}
-          </div>
-          <div>
-            <h3 style={{ margin: 0, color: '#f8fafc', fontSize: '20px' }}>{name}</h3>
-            <p style={{ margin: '6px 0 0', color: '#cbd5e1', fontSize: '13px' }}>📍 {location}</p>
-          </div>
+        <div>
+          <p style={{ margin: 0, color: '#8d7460', fontSize: '13px' }}>📍 {location}</p>
         </div>
         <span
           style={{
-            background: isAvailable ? 'rgba(34,197,94,0.12)' : 'rgba(239,68,68,0.12)',
-            color: isAvailable ? '#86efac' : '#fca5a5',
+            background: isAvailable ? '#e4efe3' : '#f5e3de',
+            color: isAvailable ? '#52684f' : '#9a5b4a',
             padding: '6px 12px',
             borderRadius: '999px',
             fontSize: '12px',
-            border: '1px solid rgba(255,255,255,0.08)',
+            border: '1px solid #ded2c4',
             whiteSpace: 'nowrap',
           }}
         >
@@ -174,12 +184,12 @@ function HostCard({ address, onRequest }) {
         </span>
       </div>
 
-      <p style={{ margin: 0, color: '#94a3b8', fontSize: '14px', lineHeight: '1.7' }}>{description}</p>
+      <p style={{ margin: 0, color: '#5e4f43', fontSize: '14px', lineHeight: '1.75' }}>{description}</p>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2,minmax(0,1fr))', gap: '10px' }}>
         <SignalCard label='Reputación' value={<Stars count={reputation} />} helper={`${Number(reviewCount)} estancias`} />
-        <SignalCard label='Confianza' value='Bilateral' helper='reseñas de ambos lados' />
-        <SignalCard label='Recomendación' value='Activa' helper='base para mejores matches' />
+        <SignalCard label='Confianza' value='Mutua' helper='ambos dejan señal' />
+        <SignalCard label='Sensación' value='Refugio' helper='hospitalidad y cuidado' />
         <SignalCard label='Wallet' value={shortAddr(address)} helper='identidad on-chain' />
       </div>
 
@@ -197,14 +207,14 @@ function SignalCard({ label, value, helper }) {
     <div
       style={{
         borderRadius: '18px',
-        background: 'rgba(255,255,255,0.04)',
-        border: '1px solid rgba(148,163,184,0.12)',
+        background: '#f6efe5',
+        border: '1px solid #e6d8c8',
         padding: '12px 14px',
       }}
     >
-      <div style={{ color: '#64748b', fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.08em' }}>{label}</div>
-      <div style={{ color: '#f8fafc', fontWeight: '700', marginTop: '6px', fontSize: '14px' }}>{value}</div>
-      <div style={{ color: '#94a3b8', fontSize: '12px', marginTop: '4px' }}>{helper}</div>
+      <div style={{ color: '#907760', fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.08em' }}>{label}</div>
+      <div style={{ color: '#47392f', fontWeight: '700', marginTop: '6px', fontSize: '14px' }}>{value}</div>
+      <div style={{ color: '#7f6a58', fontSize: '12px', marginTop: '4px' }}>{helper}</div>
     </div>
   )
 }
@@ -220,19 +230,19 @@ function HostList({ onRequest }) {
   return (
     <div>
       <div style={{ marginBottom: '24px' }}>
-        <div style={{ color: '#a78bfa', fontSize: '12px', textTransform: 'uppercase', letterSpacing: '0.22em', marginBottom: '10px' }}>
-          Descubrir anfitriones
+        <div style={{ color: '#a07c61', fontSize: '12px', textTransform: 'uppercase', letterSpacing: '0.22em', marginBottom: '10px' }}>
+          descubrir anfitriones
         </div>
-        <h2 style={{ color: '#f8fafc', margin: '0 0 8px', fontSize: '32px' }}>Hospedaje con calidez y reputación real</h2>
-        <p style={{ color: '#94a3b8', margin: 0, maxWidth: '720px', lineHeight: '1.7' }}>
-          Explora anfitriones en Monad Testnet con señales de confianza, reseñas y un diseño pensado para relaciones más humanas.
+        <h2 style={{ color: '#3f332a', margin: '0 0 8px', fontSize: '32px' }}>Espacios que se sientan como nido</h2>
+        <p style={{ color: '#6d5b4e', margin: 0, maxWidth: '720px', lineHeight: '1.8' }}>
+          Explora perfiles con una estética más humana, señales de confianza y una narrativa enfocada en refugio, comunidad y buena hospitalidad.
         </p>
       </div>
 
       {count === 0 ? (
-        <div style={{ ...cardStyle, textAlign: 'center', padding: '56px 24px', color: '#64748b' }}>
+        <div style={{ ...cardStyle, textAlign: 'center', padding: '56px 24px', color: '#7f6a58' }}>
           <p style={{ fontSize: '48px', margin: 0 }}>🏠</p>
-          <p style={{ marginBottom: 0 }}>Todavía no hay anfitriones. Sé la primera señal de confianza en la red.</p>
+          <p style={{ marginBottom: 0 }}>Todavía no hay anfitriones. Aquí puede empezar una red más cálida.</p>
         </div>
       ) : (
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(320px,1fr))', gap: '20px' }}>
@@ -263,28 +273,28 @@ function RegisterHost() {
   return (
     <div style={{ ...cardStyle, maxWidth: '760px', margin: '0 auto' }}>
       <div style={{ marginBottom: '24px' }}>
-        <div style={{ color: '#a78bfa', fontSize: '12px', textTransform: 'uppercase', letterSpacing: '0.22em', marginBottom: '10px' }}>
-          Crear perfil anfitrión
+        <div style={{ color: '#a07c61', fontSize: '12px', textTransform: 'uppercase', letterSpacing: '0.22em', marginBottom: '10px' }}>
+          crear perfil anfitrión
         </div>
-        <h2 style={{ color: '#f8fafc', margin: '0 0 8px', fontSize: '30px' }}>Abre tu espacio, construye reputación</h2>
-        <p style={{ color: '#94a3b8', margin: 0, lineHeight: '1.7' }}>
-          Presenta quién eres, qué ofreces y por qué un viajero debería confiar en ti. La experiencia empieza antes de la reserva.
+        <h2 style={{ color: '#3f332a', margin: '0 0 8px', fontSize: '30px' }}>Abre un refugio, no solo un espacio</h2>
+        <p style={{ color: '#6d5b4e', margin: 0, lineHeight: '1.8' }}>
+          Cuéntale a la comunidad cómo hospedas, qué cuidas y qué sensación quieres dejar en quien llegue.
         </p>
       </div>
 
       {isSuccess ? (
         <div
           style={{
-            background: 'linear-gradient(135deg, rgba(34,197,94,0.15), rgba(15,23,42,0.9))',
-            border: '1px solid rgba(34,197,94,0.35)',
+            background: '#edf2e7',
+            border: '1px solid #d7e0cc',
             borderRadius: '18px',
             padding: '34px',
             textAlign: 'center',
           }}
         >
-          <p style={{ fontSize: '40px', margin: '0 0 12px' }}>🎉</p>
-          <p style={{ color: '#86efac', fontWeight: '700', fontSize: '20px', margin: 0 }}>Ya eres anfitrión en Valida</p>
-          <p style={{ color: '#bbf7d0', fontSize: '14px', marginTop: '8px' }}>Tu perfil vive on-chain y ya puede recibir solicitudes.</p>
+          <p style={{ fontSize: '40px', margin: '0 0 12px' }}>🌿</p>
+          <p style={{ color: '#52684f', fontWeight: '700', fontSize: '20px', margin: 0 }}>Ya formas parte de la comunidad anfitriona</p>
+          <p style={{ color: '#6e826a', fontSize: '14px', marginTop: '8px' }}>Tu perfil vive on-chain y ya puede recibir solicitudes.</p>
         </div>
       ) : (
         <form onSubmit={handleSubmit} style={{ display: 'grid', gap: '18px' }}>
@@ -293,13 +303,13 @@ function RegisterHost() {
             { key: 'location', label: 'Ciudad y país', placeholder: 'Guadalajara, México', multi: false },
             {
               key: 'description',
-              label: 'Describe tu espacio y tu estilo de hospitalidad',
-              placeholder: 'Me gusta recibir viajeros con confianza, buena comunicación y recomendaciones locales...',
+              label: 'Describe tu espacio, tu hospitalidad y tu forma de cuidar',
+              placeholder: 'Me gusta recibir viajeros con calma, buena conversación, seguridad y recomendaciones locales...',
               multi: true,
             },
           ].map(({ key, label, placeholder, multi }) => (
             <div key={key} style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-              <label style={{ color: '#cbd5e1', fontSize: '14px' }}>{label}</label>
+              <label style={{ color: '#5d4f42', fontSize: '14px' }}>{label}</label>
               {multi ? (
                 <textarea
                   value={form[key]}
@@ -348,38 +358,39 @@ function RequestModal({ hostAddress, onClose }) {
       style={{
         position: 'fixed',
         inset: 0,
-        background: 'rgba(2,6,23,0.72)',
+        background: 'rgba(73, 56, 43, 0.35)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         zIndex: 100,
         padding: '20px',
+        backdropFilter: 'blur(4px)',
       }}
     >
       <div style={{ ...cardStyle, maxWidth: '460px', width: '100%' }}>
-        <h3 style={{ color: '#f8fafc', marginTop: 0, marginBottom: '8px', fontSize: '24px' }}>Solicitar estancia</h3>
-        <p style={{ color: '#94a3b8', fontSize: '13px', lineHeight: '1.7', marginTop: 0 }}>
-          Estás iniciando una interacción basada en confianza mutua. Los fondos quedan protegidos y la reputación se construye al cierre.
+        <h3 style={{ color: '#3f332a', marginTop: 0, marginBottom: '8px', fontSize: '24px' }}>Solicitar estancia</h3>
+        <p style={{ color: '#6d5b4e', fontSize: '13px', lineHeight: '1.8', marginTop: 0 }}>
+          Esta solicitud abre una relación de confianza. El pago queda protegido y la experiencia termina construyendo reputación para ambos.
         </p>
-        <p style={{ color: '#64748b', fontSize: '12px', fontFamily: 'monospace', wordBreak: 'break-all' }}>{hostAddress}</p>
+        <p style={{ color: '#8d7460', fontSize: '12px', fontFamily: 'monospace', wordBreak: 'break-all' }}>{hostAddress}</p>
 
         <div
           style={{
-            background: 'rgba(255,255,255,0.04)',
+            background: '#f6efe5',
             borderRadius: '18px',
             padding: '18px',
             marginBottom: '24px',
-            border: '1px solid rgba(148,163,184,0.1)',
+            border: '1px solid #e3d7c9',
           }}
         >
           <LineItem label='Reserva inicial' value='0.001 MON' />
           <LineItem label='Señal de confianza' value='reseña bilateral' />
-          <LineItem label='Resultado esperado' value='estancia + reputación' noBorder />
+          <LineItem label='Resultado esperado' value='refugio + reputación' noBorder />
         </div>
 
         {isSuccess ? (
           <div style={{ textAlign: 'center' }}>
-            <p style={{ color: '#86efac', fontWeight: '700', fontSize: '16px' }}>Solicitud enviada con éxito</p>
+            <p style={{ color: '#52684f', fontWeight: '700', fontSize: '16px' }}>Solicitud enviada con éxito</p>
             <button onClick={onClose} style={{ ...btnStyle, width: '100%' }}>Cerrar</button>
           </div>
         ) : (
@@ -404,11 +415,11 @@ function LineItem({ label, value, noBorder = false }) {
         gap: '12px',
         paddingBottom: noBorder ? 0 : '12px',
         marginBottom: noBorder ? 0 : '12px',
-        borderBottom: noBorder ? 'none' : '1px solid rgba(148,163,184,0.1)',
+        borderBottom: noBorder ? 'none' : '1px solid #e5dacc',
       }}
     >
-      <span style={{ color: '#94a3b8' }}>{label}</span>
-      <span style={{ color: '#f8fafc', textAlign: 'right' }}>{value}</span>
+      <span style={{ color: '#7f6a58' }}>{label}</span>
+      <span style={{ color: '#43362c', textAlign: 'right' }}>{value}</span>
     </div>
   )
 }
@@ -417,14 +428,58 @@ function Feature({ title, body }) {
   return (
     <div
       style={{
-        borderRadius: '18px',
-        padding: '16px 18px',
-        background: 'rgba(255,255,255,0.05)',
-        border: '1px solid rgba(148,163,184,0.1)',
+        borderRadius: '22px',
+        padding: '18px 18px',
+        background: '#f8f2e8',
+        border: '1px solid #eadfce',
       }}
     >
-      <div style={{ color: '#f8fafc', fontWeight: '700', marginBottom: '8px' }}>{title}</div>
-      <div style={{ color: '#94a3b8', fontSize: '14px', lineHeight: '1.65' }}>{body}</div>
+      <div style={{ color: '#43362c', fontWeight: '700', marginBottom: '8px' }}>{title}</div>
+      <div style={{ color: '#6f5d50', fontSize: '14px', lineHeight: '1.75' }}>{body}</div>
+    </div>
+  )
+}
+
+function ImageCluster() {
+  return (
+    <div style={{ display: 'grid', gridTemplateColumns: '1.1fr 0.9fr', gap: '14px', alignItems: 'stretch' }}>
+      <div
+        style={{
+          minHeight: '360px',
+          borderRadius: '36px',
+          backgroundImage: `url(${editorialImages[0]})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          position: 'relative',
+          overflow: 'hidden',
+        }}
+      >
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(255,250,244,0.02), rgba(68,49,33,0.34))' }} />
+        <div style={{ position: 'absolute', left: '18px', bottom: '18px', right: '18px', color: '#fffaf3' }}>
+          <div style={{ fontSize: '12px', letterSpacing: '0.12em', textTransform: 'uppercase' }}>comunidad</div>
+          <div style={{ fontSize: '26px', fontWeight: '700', lineHeight: 1.2 }}>Espacios que abrazan a quien llega</div>
+        </div>
+      </div>
+      <div style={{ display: 'grid', gap: '14px' }}>
+        <div
+          style={{
+            minHeight: '173px',
+            borderRadius: '28px',
+            backgroundImage: `url(${editorialImages[1]})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}
+        />
+        <div
+          style={{
+            minHeight: '173px',
+            borderRadius: '28px',
+            backgroundImage: `url(${editorialImages[2]})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}
+        />
+      </div>
     </div>
   )
 }
@@ -440,22 +495,21 @@ export default function App() {
     <div
       style={{
         minHeight: '100vh',
-        background:
-          'radial-gradient(circle at top left, rgba(168,85,247,0.20), transparent 24%), radial-gradient(circle at top right, rgba(45,212,191,0.14), transparent 20%), linear-gradient(180deg, #070b16 0%, #0b1020 100%)',
-        fontFamily: 'Inter, system-ui, sans-serif',
+        background: '#f4ede3',
+        fontFamily: 'Georgia, "Times New Roman", serif',
       }}
     >
       <header
         style={{
-          borderBottom: '1px solid rgba(148,163,184,0.12)',
+          borderBottom: '1px solid #e4d7c7',
           padding: '16px 24px',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
           position: 'sticky',
           top: 0,
-          background: 'rgba(7,11,22,0.72)',
-          backdropFilter: 'blur(18px)',
+          background: 'rgba(244,237,227,0.88)',
+          backdropFilter: 'blur(14px)',
           zIndex: 50,
           gap: '16px',
           flexWrap: 'wrap',
@@ -464,30 +518,29 @@ export default function App() {
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
           <div
             style={{
-              width: '42px',
-              height: '42px',
-              borderRadius: '14px',
-              background: 'linear-gradient(135deg,#8b5cf6,#ec4899)',
+              width: '44px',
+              height: '44px',
+              borderRadius: '16px',
+              background: '#d8c0a6',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               fontSize: '18px',
-              boxShadow: '0 18px 40px rgba(139,92,246,0.3)',
             }}
           >
-            💜
+            🪺
           </div>
           <div>
-            <div style={{ fontWeight: '800', fontSize: '20px', color: '#f8fafc' }}>Valida</div>
-            <div style={{ fontSize: '11px', color: '#94a3b8' }}>hospitalidad solidaria sobre Monad</div>
+            <div style={{ fontWeight: '700', fontSize: '22px', color: '#3f332a' }}>Valida</div>
+            <div style={{ fontSize: '11px', color: '#8d7460', fontFamily: 'Inter, system-ui, sans-serif' }}>nido, confianza y hospitalidad</div>
           </div>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap', fontFamily: 'Inter, system-ui, sans-serif' }}>
           {isConnected && <TokenBalance address={address} />}
           {isConnected ? (
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
-              <span style={{ color: '#94a3b8', fontSize: '13px' }}>{shortAddr(address)}</span>
+              <span style={{ color: '#8d7460', fontSize: '13px' }}>{shortAddr(address)}</span>
               <button onClick={() => disconnect()} style={ghostBtnStyle}>Disconnect</button>
             </div>
           ) : (
@@ -497,84 +550,85 @@ export default function App() {
       </header>
 
       <main style={{ maxWidth: '1180px', margin: '0 auto', padding: '32px 20px 64px' }}>
-        <section style={{ ...cardStyle, padding: '32px', marginBottom: '26px', overflow: 'hidden', position: 'relative' }}>
-          <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none' }}>
-            <div style={{ position: 'absolute', top: '-60px', left: '-20px', width: '220px', height: '220px', borderRadius: '999px', background: 'rgba(236,72,153,0.18)', filter: 'blur(70px)' }} />
-            <div style={{ position: 'absolute', top: '-40px', right: '0', width: '220px', height: '220px', borderRadius: '999px', background: 'rgba(34,197,94,0.12)', filter: 'blur(70px)' }} />
+        <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(320px,1fr))', gap: '26px', alignItems: 'center', marginBottom: '28px' }}>
+          <div style={{ padding: '6px 4px' }}>
+            <div style={{ color: '#9b7b64', fontSize: '12px', textTransform: 'uppercase', letterSpacing: '0.24em', marginBottom: '12px', fontFamily: 'Inter, system-ui, sans-serif' }}>
+              hospitalidad solidaria sobre monad
+            </div>
+            <h1 style={{ color: '#3b2f28', fontSize: 'clamp(42px, 6vw, 72px)', lineHeight: 1.02, margin: '0 0 18px', fontWeight: '700' }}>
+              Un lugar para llegar,
+              <span style={{ display: 'block', color: '#7f5d49' }}>ser recibido y confiar.</span>
+            </h1>
+            <p style={{ color: '#655347', fontSize: '19px', lineHeight: '1.9', maxWidth: '720px', margin: 0, fontFamily: 'Inter, system-ui, sans-serif' }}>
+              Valida quiere sentirse menos como una plataforma fría y más como una red de refugios humanos:
+              viajeros, anfitriones, reputación, comunidad y recomendaciones nacidas de experiencias reales.
+            </p>
+
+            <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginTop: '24px', fontFamily: 'Inter, system-ui, sans-serif' }}>
+              {!isConnected && (
+                <button onClick={() => connect({ connector: injected() })} style={{ ...btnStyle, fontSize: '16px', padding: '14px 28px' }}>
+                  Conectar wallet
+                </button>
+              )}
+              <button style={ghostBtnStyle} onClick={() => window.scrollTo({ top: 780, behavior: 'smooth' })}>
+                Explorar comunidad
+              </button>
+            </div>
           </div>
 
-          <div style={{ position: 'relative', display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(300px,1fr))', gap: '24px', alignItems: 'center' }}>
-            <div>
-              <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '16px' }}>
-                {['Monad Testnet', 'Confianza entre humanos', 'Reputación y recomendación'].map((tag) => (
-                  <span
-                    key={tag}
-                    style={{
-                      padding: '7px 12px',
-                      borderRadius: '999px',
-                      background: 'rgba(255,255,255,0.05)',
-                      border: '1px solid rgba(148,163,184,0.1)',
-                      color: '#d8b4fe',
-                      fontSize: '12px',
-                    }}
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
+          <ImageCluster />
+        </section>
 
-              <h1 style={{ color: '#f8fafc', fontSize: 'clamp(40px, 6vw, 68px)', lineHeight: 1.02, margin: '0 0 16px', fontWeight: '900' }}>
-                Viajar debería sentirse
-                <span style={{ display: 'block', background: 'linear-gradient(135deg,#c084fc,#5eead4)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-                  seguro, humano y recíproco.
-                </span>
-              </h1>
-              <p style={{ color: '#cbd5e1', fontSize: '18px', lineHeight: '1.8', maxWidth: '700px', margin: 0 }}>
-                Valida conecta viajeros y anfitriones con reglas on-chain, reseñas bilaterales y una vibra de hospitalidad solidaria.
-                Aquí no solo reservas: construyes confianza y reputación útil para mejores estancias futuras.
-              </p>
-
-              {!isConnected && (
-                <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginTop: '24px' }}>
-                  <button onClick={() => connect({ connector: injected() })} style={{ ...btnStyle, fontSize: '16px', padding: '14px 28px' }}>
-                    Conectar wallet para empezar
-                  </button>
-                  <button style={ghostBtnStyle} onClick={() => window.scrollTo({ top: 760, behavior: 'smooth' })}>
-                    Ver cómo funciona
-                  </button>
-                </div>
-              )}
+        <section style={{ display: 'grid', gridTemplateColumns: '1.2fr 0.8fr', gap: '18px', marginBottom: '28px' }}>
+          <div style={{ ...cardStyle, background: '#f8f2e8' }}>
+            <div style={{ color: '#9b7b64', fontSize: '12px', textTransform: 'uppercase', letterSpacing: '0.22em', marginBottom: '10px', fontFamily: 'Inter, system-ui, sans-serif' }}>
+              visión de producto
             </div>
-
-            <div style={{ display: 'grid', gap: '14px' }}>
-              <Feature title='Amor por los viajeros' body='La interfaz y el copy están pensados para transmitir cuidado, no frialdad financiera.' />
-              <Feature title='Hospedaje solidario' body='La propuesta comunica afinidad, acompañamiento y mejores matches entre personas.' />
-              <Feature title='Reputación verificable' body='Cada interacción cierra con señales reales que luego pueden alimentar recomendación.' />
+            <h2 style={{ color: '#3f332a', margin: '0 0 12px', fontSize: '34px' }}>Más hogar, menos interfaz genérica</h2>
+            <p style={{ color: '#675549', lineHeight: '1.85', marginTop: 0, fontFamily: 'Inter, system-ui, sans-serif' }}>
+              El rediseño busca expresar nido, refugio y solidaridad. Menos brillos “AI”, más texturas suaves, tonos tierra,
+              espacios respirables e imágenes que parezcan vida real. La idea no es solo “verse bonito”, sino transmitir una
+              promesa emocional coherente con la experiencia que queremos construir.
+            </p>
+          </div>
+          <div style={{ ...cardStyle, background: '#efe4d4' }}>
+            <div style={{ color: '#3f332a', fontWeight: '700', marginBottom: '14px', fontSize: '20px' }}>Señales que queremos transmitir</div>
+            <div style={{ display: 'grid', gap: '10px', fontFamily: 'Inter, system-ui, sans-serif' }}>
+              {[
+                'refugio antes que transacción',
+                'confianza mutua y visible',
+                'comunidad con calidez',
+                'recomendación basada en reputación',
+              ].map((item) => (
+                <div key={item} style={{ padding: '12px 14px', borderRadius: '16px', background: '#f8f1e7', border: '1px solid #e3d6c6', color: '#69584b' }}>
+                  {item}
+                </div>
+              ))}
             </div>
           </div>
         </section>
 
-        <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(220px,1fr))', gap: '16px', marginBottom: '26px' }}>
-          <Feature title='Pago protegido' body='La reserva se inicia con 0.001 MON y queda ligada a reglas claras.' />
-          <Feature title='Reseñas bilaterales' body='La confianza se construye entre ambos lados, no desde un intermediario opaco.' />
-          <Feature title='Sistema de recomendación' body='La narrativa ya deja claro el siguiente paso del producto: mejores matches.' />
-          <Feature title='Identidad on-chain' body='Cada anfitrión y viajero puede construir reputación portable.' />
+        <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(220px,1fr))', gap: '16px', marginBottom: '28px', fontFamily: 'Inter, system-ui, sans-serif' }}>
+          <Feature title='Nido' body='El layout abraza al usuario con espacios suaves, rounded corners y una lectura más editorial.' />
+          <Feature title='Comunidad' body='Las imágenes y el copy priorizan vínculos, no solo flujo transaccional.' />
+          <Feature title='Solidaridad' body='La estética comunica cuidado, hospitalidad y alojamiento con intención humana.' />
+          <Feature title='Reputación' body='La experiencia deja claro que cada estancia aporta señales para futuros matches.' />
         </section>
 
         {isConnected && (
-          <section style={{ marginBottom: '24px' }}>
+          <section style={{ marginBottom: '24px', fontFamily: 'Inter, system-ui, sans-serif' }}>
             <div style={{ display: 'flex', gap: '10px', marginBottom: '22px', flexWrap: 'wrap' }}>
               {[
-                { id: 'discover', label: '🔍 Descubrir anfitriones' },
-                { id: 'register', label: '🏠 Convertirme en anfitrión' },
+                { id: 'discover', label: '🔎 Descubrir anfitriones' },
+                { id: 'register', label: '🏡 Crear perfil anfitrión' },
               ].map((t) => (
                 <button
                   key={t.id}
                   onClick={() => setTab(t.id)}
                   style={{
-                    background: tab === t.id ? 'linear-gradient(135deg,#8b5cf6,#ec4899)' : 'rgba(255,255,255,0.04)',
-                    color: '#f8fafc',
-                    border: '1px solid rgba(148,163,184,0.14)',
+                    background: tab === t.id ? '#7d5a45' : '#f7efe5',
+                    color: tab === t.id ? '#fffaf3' : '#5d4f42',
+                    border: '1px solid #dbcdbd',
                     cursor: 'pointer',
                     padding: '12px 18px',
                     borderRadius: '999px',
@@ -593,14 +647,14 @@ export default function App() {
         )}
 
         {!isConnected && (
-          <section style={{ ...cardStyle, padding: '26px' }}>
-            <div style={{ color: '#a78bfa', fontSize: '12px', textTransform: 'uppercase', letterSpacing: '0.22em', marginBottom: '10px' }}>
-              Cómo opera
+          <section style={{ ...cardStyle, background: '#fff8f1', fontFamily: 'Inter, system-ui, sans-serif' }}>
+            <div style={{ color: '#9b7b64', fontSize: '12px', textTransform: 'uppercase', letterSpacing: '0.22em', marginBottom: '10px' }}>
+              cómo se siente el flujo
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(220px,1fr))', gap: '16px' }}>
-              <Feature title='1. Conecta tu wallet' body='Entra a la red con tu identidad on-chain y accede a la experiencia completa.' />
-              <Feature title='2. Elige o publica' body='Busca anfitriones alineados o abre tu espacio con una historia clara y honesta.' />
-              <Feature title='3. Cierra la experiencia' body='La estancia produce reseñas, reputación y más contexto para futuras recomendaciones.' />
+              <Feature title='1. Llegas' body='Conectas tu wallet y entras a un espacio que comunica cuidado desde el primer vistazo.' />
+              <Feature title='2. Encuentras tu match' body='Exploras anfitriones con mejor narrativa, señales humanas y reputación visible.' />
+              <Feature title='3. Dejas huella' body='La estancia termina alimentando confianza y futuras recomendaciones dentro de la red.' />
             </div>
           </section>
         )}
@@ -608,8 +662,8 @@ export default function App() {
 
       {requestHost && <RequestModal hostAddress={requestHost} onClose={() => setRequestHost(null)} />}
 
-      <footer style={{ textAlign: 'center', padding: '0 20px 40px', color: '#64748b', fontSize: '13px' }}>
-        Valida · hospedaje solidario · confianza entre humanos · Monad Testnet 🟣
+      <footer style={{ textAlign: 'center', padding: '0 20px 40px', color: '#8d7460', fontSize: '13px', fontFamily: 'Inter, system-ui, sans-serif' }}>
+        Valida · refugio, comunidad y confianza entre humanos · Monad Testnet
       </footer>
     </div>
   )
