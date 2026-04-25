@@ -549,8 +549,8 @@ export default function App() {
             🪺
           </div>
           <div>
-            <div style={{ fontWeight: '700', fontSize: '22px', color: '#3f332a' }}>Valida</div>
-            <div style={{ fontSize: '11px', color: '#8d7460', fontFamily: 'Inter, system-ui, sans-serif' }}>nido, confianza y hospitalidad</div>
+            <div style={{ fontWeight: '700', fontSize: '22px', color: '#3f332a' }}>Nido</div>
+            <div style={{ fontSize: '11px', color: '#8d7460', fontFamily: 'Inter, system-ui, sans-serif' }}>mi nido es tu nido</div>
           </div>
         </div>
 
@@ -676,7 +676,7 @@ export default function App() {
       {requestHost && <RequestModal hostAddress={requestHost} onClose={() => setRequestHost(null)} />}
 
       <footer style={{ textAlign: 'center', padding: '0 20px 40px', color: '#8d7460', fontSize: '13px', fontFamily: 'Inter, system-ui, sans-serif' }}>
-        Valida · Monad Testnet
+        Nido · mi nido es tu nido · Monad Testnet
       </footer>
     </div>
   )
